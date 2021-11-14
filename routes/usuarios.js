@@ -1,7 +1,19 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { validarCampos } = require('../middlewares/validar-campos');
+
+// const { validarJWT } = require('../middlewares/validar-jwt');
+// const { validarCampos } = require('../middlewares/validar-campos');
+// const { esAdminRole, tieneRole } = require('../middlewares/validar-roles');
+const {
+    validarCampos,
+    validarJWT,
+    esAdminRole,
+    tieneRole
+} = require ('../middlewares')
+
+
 const { esRolValido, emailExiste, existeUsuarioPorId } = require('../helpers/db-validators');
+
 const { usuariosGet,
     usuariosPost,
     usuariosPut,
@@ -34,6 +46,9 @@ router.put('/:id',[
 router.patch('/', usuariosPatch);
 
 router.delete('/:id',[
+    validarJWT,  // primer middleware es el de validar jason web token porque si da error no se ejecutan los posteriores
+    //esAdminRole,  // Este es un middleware que da permisos solo al admin para borrar usuario(cambiar estado false)
+    tieneRole('ADMIN_ROLE','VENTA_ROLE'),
     check('id', 'No es un ID valido').isMongoId(), 
     check('id').custom(existeUsuarioPorId),
     validarCampos
