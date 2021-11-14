@@ -29,12 +29,12 @@ const usuariosGet = async (req, res = response) => {
 
 const usuariosPost = async (req, res = response) => {
 
-    const { nombre, correo, pasword, rol } = req.body;
-    const usuario = new Usuario({ nombre, correo, pasword, rol }); // crea una instancia de usuario
+    const { nombre, correo, password, rol } = req.body;
+    const usuario = new Usuario({ nombre, correo, password, rol }); // crea una instancia de usuario
 
     //encrytar contraseña
     const salt = bcrypt.genSaltSync();
-    usuario.pasword = bcrypt.hashSync(pasword, salt)
+    usuario.password = bcrypt.hashSync(password, salt)
 
     //guardar db
 
@@ -48,13 +48,13 @@ const usuariosPost = async (req, res = response) => {
 const usuariosPut = async (req, res = response) => {
 
     const { id } = req.params;
-    const { _id, pasword, google, correo, ...resto } = req.body;
+    const { _id, password, google, correo, ...resto } = req.body;
 
     // Validar contra base de datos id
-    if (pasword) {
+    if (password) {
         //encrytar contraseña
         const salt = bcrypt.genSaltSync();
-        resto.pasword = bcrypt.hashSync(pasword, salt)
+        resto.password = bcrypt.hashSync(password, salt)
     }
     const usuario = await Usuario.findByIdAndUpdate(id, resto);
 

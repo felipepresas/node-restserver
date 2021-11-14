@@ -12,7 +12,7 @@ const UsuarioSchema = Schema({
         required: [true, 'El correo es obligatorio'],
         unique: true  // con el parametro unique solo puede existir un correo con ese nombre
     },
-    pasword: {
+    password: {
         type: String,
         required: [true, 'La contraseña es obligatorio'],
     },
@@ -36,7 +36,7 @@ const UsuarioSchema = Schema({
 });
 
 UsuarioSchema.methods.toJSON = function () {
-    const { __v, pasword, _id, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
     usuario.uid = _id;
     return usuario;
 }

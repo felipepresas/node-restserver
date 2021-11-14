@@ -31,7 +31,7 @@ class Server {
         //LECTURA Y PARSEO DEL BODY
         this.app.use(express.json());
 
-        //Directorio publico
+        //Directorio publico que sirve al cliente
         this.app.use(express.static('public'));
 
     }
