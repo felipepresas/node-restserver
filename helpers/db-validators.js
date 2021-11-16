@@ -1,5 +1,7 @@
+// Validadores personalizados
+
+const { Categoria, Usuario, Producto } = require('../models');
 const Rol = require('../models/rol');
-const Usuario = require('../models/usuario');
 
 // verifica si rol valido
 const esRolValido = async (rol = '') => {
@@ -25,9 +27,29 @@ const existeUsuarioPorId = async (id) => {
     }
 
 }
+//verificar si existe categoria
+
+const existeCategoriaPorId = async (id) => {
+    const existeCategoria = await Categoria.findById(id);
+    if (!existeCategoria) {
+        throw new Error(`El id ${id} no existe`);
+    }
+
+}
+//verificar si existe producto
+
+const existeProductoPorId = async (id) => {
+    const existeProducto = await Producto.findById(id);
+    if (!existeProducto) {
+        throw new Error(`El id ${id} no existe`);
+    }
+
+}
 
 module.exports = {
     esRolValido,
     emailExiste,
     existeUsuarioPorId,
+    existeCategoriaPorId,
+    existeProductoPorId
 }
