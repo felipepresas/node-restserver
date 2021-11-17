@@ -3,4 +3,7 @@ node_modules/
 
 .env
 
-test.http
+_endpoint.test/
+
+uploads/productos/**.*
+uploads/usuarios/**.*
